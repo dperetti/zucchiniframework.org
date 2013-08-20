@@ -5,7 +5,6 @@
 
   <link rel="shortcut icon" href="i/favicon.ico"/>
   <link rel="stylesheet" href="css/foundation.css"/>
-  <link rel="stylesheet" href="css/textmate-code.css"/>
 
   <style type="text/css">
     a, a:hover    { color: green; }
@@ -43,8 +42,22 @@
       line-height: 77px;
       font-family: Georgia, serif;
     }
+    pre { margin-bottom: 10px; }
+    pre code {
+      width: 570px;
+      border-radius: 5px;
+      box-shadow: inset 0 0 10px #000;
+      font-size: 12px;
+      font-family: Monaco, monospace;
+      padding: 10px !important;
+      line-height: 17px;
+    }
     ul.disc.offset { margin-top: 79px; }
   </style>
+
+  <link rel="stylesheet" href="css/highlight/birds_of_paradise.css">
+  <script src="js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
   <div class="container">
@@ -88,19 +101,19 @@
       <div class="twelve columns">
         <h3>How it works</h3>
         <p>A Zucchini feature file consists of sections bound to contexts of different application screens. Every screen you proceed to needs to be backed up by a <a href="http://www.coffeescript.org" target="_blank">CoffeeScript</a> class describing all UI elements you want Zucchini to interact with as well as custom actions you feel like performing on that screen.</p>
-        <pre class="new_bop"><span class="source source_coffee"><span class="meta meta_class meta_class_coffee"><span class="storage storage_type storage_type_class storage_type_class_coffee">class</span> <span class="entity entity_name entity_name_type entity_name_type_class entity_name_type_class_coffee">PostScreen</span> <span class="keyword keyword_control keyword_control_inheritance keyword_control_inheritance_coffee">extends</span> <span class="entity entity_other entity_other_inherited-class entity_other_inherited-class_coffee">Screen</span></span>
-<span class="meta meta_function meta_function_coffee">  <span class="entity entity_name entity_name_function entity_name_function_coffee">ancho<span class="entity entity_name entity_name_function entity_name_function_coffee">r</span></span></span><span class="keyword keyword_operator keyword_operator_coffee">:</span> <span class="keyword keyword_operator keyword_operator_coffee">-&gt;</span> $(</span><span class="string string_quoted string_quoted_double string_quoted_double_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">"</span>navigationBar[name=Post]<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">"</span></span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">)
-</span>
-<span class="meta meta_function meta_function_coffee">  <span class="entity entity_name entity_name_function entity_name_function_coffee">constructo<span class="entity entity_name entity_name_function entity_name_function_coffee">r</span></span></span><span class="keyword keyword_operator keyword_operator_coffee">:</span> <span class="keyword keyword_operator keyword_operator_coffee">-&gt;</span>
-    <span class="variable variable_language variable_language_coffee">super</span> <span class="string string_quoted string_quoted_single string_quoted_single_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">'</span>post<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">'</span></span>
+        <pre><code class="coffeescript">class PostScreen extends Screen
+  anchor: -> $("navigationBar[name=Post]")
 
-    extend <span class="variable variable_other variable_other_readwrite variable_other_readwrite_instance variable_other_readwrite_instance_coffee">@elements</span><span class="meta meta_delimiter meta_delimiter_object meta_delimiter_object_comma meta_delimiter_object_comma_coffee">,</span>
-    <span class="string string_quoted string_quoted_single string_quoted_single_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">'</span>Post<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">'</span></span><span class="keyword keyword_operator keyword_operator_coffee">:</span> <span class="keyword keyword_operator keyword_operator_coffee">-&gt;</span> view<span class="meta meta_delimiter meta_delimiter_method meta_delimiter_method_period meta_delimiter_method_period_coffee">.</span>navigationBars<span class="meta meta_brace meta_brace_round meta_brace_round_coffee">()</span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">[</span><span class="string string_quoted string_quoted_double string_quoted_double_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">"</span>Post<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">"</span></span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">]</span><span class="meta meta_delimiter meta_delimiter_method meta_delimiter_method_period meta_delimiter_method_period_coffee">.</span>buttons<span class="meta meta_brace meta_brace_round meta_brace_round_coffee">()</span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">[</span><span class="string string_quoted string_quoted_double string_quoted_double_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">"</span>Post<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">"</span></span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">]
-</span>
-    extend <span class="variable variable_other variable_other_readwrite variable_other_readwrite_instance variable_other_readwrite_instance_coffee">@actions</span><span class="meta meta_delimiter meta_delimiter_object meta_delimiter_object_comma meta_delimiter_object_comma_coffee">,</span>
-    <span class="string string_quoted string_quoted_single string_quoted_single_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">'</span>Type "([^"]*)"$<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">'</span></span><span class="keyword keyword_operator keyword_operator_coffee">:</span> <span class="meta meta_inline meta_inline_function meta_inline_function_coffee"><span class="variable variable_parameter variable_parameter_function variable_parameter_function_coffee">(text)</span> <span class="storage storage_type storage_type_function storage_type_function_coffee">-&gt;</span></span>
-      <span class="variable variable_assignment variable_assignment_coffee"><span class="variable variable_assignment variable_assignment_coffee">messageArea <span class="keyword keyword_operator keyword_operator_coffee">=</span></span></span> view<span class="meta meta_delimiter meta_delimiter_method meta_delimiter_method_period meta_delimiter_method_period_coffee">.</span>elements<span class="meta meta_brace meta_brace_round meta_brace_round_coffee">()</span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">[</span><span class="string string_quoted string_quoted_single string_quoted_single_coffee"><span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_begin punctuation_definition_string_begin_coffee">'</span>Message Text Area<span class="punctuation punctuation_definition punctuation_definition_string punctuation_definition_string_end punctuation_definition_string_end_coffee">'</span></span><span class="meta meta_brace meta_brace_square meta_brace_square_coffee">]
-</span>      messageArea<span class="meta meta_delimiter meta_delimiter_method meta_delimiter_method_period meta_delimiter_method_period_coffee">.</span>setValue text</span></pre>
+  constructor: ->
+    super 'post'
+
+    extend @elements,
+    'Post': -> view.navigationBars()["Post"].buttons()["Post"]
+
+    extend @actions,
+    'Type "([^"]*)"$': (text) ->
+      messageArea = view.elements()['Message Text Area']
+      messageArea.setValue text</pre></code>
         <p>Zucchini integrates <a href="https://github.com/jaykz52/mechanic" target="_blank">mechanic.js</a> for quick and painless elements selection.</p>
         <p>When you run Zucchini, it compiles screen classes into an UIAutomation-compliant Javascript scenario, and runs it with Apple's instruments CLI tool.</p>
       </div>
@@ -109,17 +122,17 @@
       <h4>Pre-requisites</h4>
       <p>Zucchini only runs on Mac OS X 10.6 and better and requires XCode 4.2 or newer as well as Ruby 1.9.3 (or newer).</p>
       <p>The other two dependencies are ImageMagick and CoffeeScript. If you use <a href="http://mxcl.github.com/homebrew/">Homebrew</a>, they are straightforward to install:<br/>
-      <pre>brew update <br/>brew install imagemagick node <br/>npm install coffee-script</pre></p>
+      <pre><code>brew update <br/>brew install imagemagick node <br/>npm install coffee-script</code></pre></p>
 
       <h4>Adding Zucchini to your project</h4>
       <p>Install the zucchini-ios gem:
-        <pre>gem install zucchini-ios</pre>
+        <pre><code>gem install zucchini-ios</code></pre>
       </p>
       <p>Create a project scaffold for zucchini:
-        <pre>zucchini generate --project /path/to/my_project</pre>
+        <pre><code class="bash">zucchini generate --project /path/to/my_project</code></pre>
       </p>
       <p>Create a feature scaffold for your first feature:
-        <pre>zucchini generate --feature /path/to/my_project/features/my_feature</pre>
+        <pre><code class="bash">zucchini generate --feature /path/to/my_project/features/my_feature</code></pre>
       </p>
 
       <h4>Start testing with Zucchini</h4>
